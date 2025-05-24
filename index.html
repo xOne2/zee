@@ -59,10 +59,6 @@
       background-color: rgba(255, 255, 255, 0.4);
     }
 
-    audio {
-      display: none;
-    }
-
     .avatar {
       width: 150px;
       height: 150px;
@@ -73,27 +69,28 @@
     }
 
     #bgVideo {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    object-fit: cover;
-    z-index: -1;
-  }
-
-
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -1;
+    }
   </style>
 </head>
 <body>
+
+  <video autoplay muted loop playsinline id="bgVideo">
+    <source src="16381072-hd_1920_1080_25fps.mp4" type="video/mp4">
+  </video>
+
   <div class="content">
     <img src="636f99072c4bde33f603c9df55c32dbd.jpg" alt="Avatar" class="avatar">
     <h1>สวัสดีครับ ผมชื่อ <span class="highlight">Weir</span></h1>
-    <p> ชอบเขียนโปรเเกรม : Lua Python Html Css</p>
-    <p>ชอบเล่นเกม : Rov VALORANT</p>
+    <p>ชอบเขียนโปรเเกรม : Lua, Python, HTML, CSS</p>
+    <p>ชอบเล่นเกม : ROV, VALORANT</p>
     <p>สถานะ : โสด💖</p>
-
-    
 
     <div class="button-group">
       <button id="toggleMusic">🔊 ปิดเสียง</button>
@@ -101,13 +98,6 @@
     </div>
   </div>
 
-
-<video autoplay muted loop id="bgVideo">
-  <source src="16381072-hd_1920_1080_25fps.mp4" type="video/mp4">
-</video>
-
-
-  
   <audio id="bgMusic" autoplay loop>
     <source src="[FREE] Chill Old School Beat ｜ HipHop Beat บีทเเร็พโอสคูล บีทโ.mp3" type="audio/mpeg">
   </audio>
@@ -119,6 +109,7 @@
       let isMuted = false;
 
       window.addEventListener('click', () => {
+        bgMusic.muted = false;
         bgMusic.play().catch(() => {});
       }, { once: true });
 
@@ -128,29 +119,16 @@
         toggleBtn.textContent = isMuted ? '🔇 เปิดเสียง' : '🔊 ปิดเสียง';
       });
     })();
-    
-  document.addEventListener("keydown", function (e) {
-    if (e.key === "F12" || (e.ctrlKey && e.shiftKey && e.key === "I")) {
+
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "F12" || (e.ctrlKey && e.shiftKey && ["I", "J", "C"].includes(e.key)) || (e.ctrlKey && e.key === 'U') || (e.ctrlKey && e.key === 'S')) {
+        e.preventDefault();
+      }
+    });
+
+    document.addEventListener("contextmenu", function (e) {
       e.preventDefault();
-    }
-  });
-
-  document.addEventListener("contextmenu", function (e) {
-    e.preventDefault();
-  });
-
-  document.onkeydown = function(e) {
-    if (
-      (e.ctrlKey && e.key === 'u') || 
-      (e.ctrlKey && e.key === 's') || 
-      (e.ctrlKey && e.shiftKey && e.key === 'J') || 
-      (e.ctrlKey && e.shiftKey && e.key === 'C') || 
-      (e.ctrlKey && e.shiftKey && e.key === 'I') 
-    ) {
-      return false;
-    }
-  };
-
+    });
   </script>
 </body>
 </html>
